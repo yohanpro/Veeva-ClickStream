@@ -37,22 +37,40 @@ class SurveyClickStream {
 
   submitSurveyResult() {
     return new Promise((res, rej) => {
+      let result = "";
       if (this.isAnswerEmpty(this.clickStreamObject.Answer_vod__c)) {
-        return res(); //만약 답변이 비어있다면 그대로 return 해준다.
+        result = "답변 없음";
+        return res(result); //만약 답변이 비어있다면 그대로 return 해준다.
       }
       if (isVeevaEnvironment()) {
         //만약에 첫번째로 submit 하는 것이라면! create
-        com.veeva.clm.createRecord(
-          "Call_Clickstream_vod__c",
-          this.clickStreamObject,
-          function(result) {
-            res(result);
-          }
-        );
+        switch (this.type) {
+          case "create":
+            com.veeva.clm.createRecord(
+              "Call_Clickstream_vod__c",
+              this.clickStreamObject,
+              function(result) {
+                res(result);
+              }
+            );
+            break;
+          case "update":
+            com.veeva.clm.updateRecord(
+              "Call_Clickstream_vod__c",
+              this.clickStreamObject.Track_Element_Id_vod__c,
+              this.clickStreamObject,
+              function(result) {
+                res(result);
+              }
+            );
+          default:
+            throw Error("Check your type spell");
+            break;
+        }
       } else {
         //개발환경이라면 veeva library를 사용할 수 없으므로 로그만 확인
         console.log(this.clickStreamObject);
-        res();
+        res(result);
       }
     });
   }
