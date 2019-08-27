@@ -10,7 +10,7 @@ Veeva에 ClickStream 데이터를 보낼 때, 배열로 만들고 한꺼번에 �
 veeva 라이브러리 뒤편에 ClickStream.js 사용.  
 local.js에 ClickStream Class 인스턴스를 만들어서 사용.
 
-<span style="color:red; font-weight:bold; font-size:1.4rem;">Example</span>
+###Example
 
 ```html
 <body>
@@ -21,7 +21,13 @@ local.js에 ClickStream Class 인스턴스를 만들어서 사용.
 ```
 
 ```js
-const clickstream = new ClickStream("Title", "Description", "id", "text");
+const clickstream = new ClickStream(
+  "Title",
+  "Description",
+  "answer",
+  "id",
+  "type"
+);
 
 const btnSubmit = document.getElementById("btn");
 
@@ -31,31 +37,17 @@ btnSubmit.addEventListener("click", () => clickstream.submit("create"));
 ### Create instance
 
 ```js
-const clickstream = new ClickStream("Title", "Description", "id", "text");
+const clickstream = new ClickStream(
+  "Title",
+  "Description",
+  "answer",
+  "id",
+  "update"
+);
 ```
 
-<li> <strong style="color:red;">qusetionTitle</strong> clicksteam에 들어갈 질문</li>
-<li> <strong style="color:red;">Description</strong> Description에 들어갈 질문</li>
-<li> <strong style="color:red;"> id</strong> 고유값, update하기 위해 사용</li>
-<li><strong style="color:red;">type </strong>clickstream 타입이 text인지 picklist인지 slide인지 타입</li>
-
-### submit
-
-```js
-
-const btn
-clickstream.submit("create");
-```
-
-### update
-
-```js
-clickstream.submit("update");
-```
-
-### 배열로 보내기
-
-```js
-clickStreamArr = [clickstream1, clickstream2, clickstream3, clickstream4];
-clickStreamArr.submit("create");
-```
+<li> <strong>qusetionTitle</strong> clicksteam에 들어갈 질문</li>
+<li> <strong>Description</strong> Description에 들어갈 질문</li>
+<li> <strong>answer</strong> 대답</li>
+<li> <strong> id</strong> 고유값, update하기 위해 사용</li>
+<li><strong>type </strong>update인지 create인지 확인</li>
