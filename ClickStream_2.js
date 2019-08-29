@@ -22,9 +22,10 @@ class SurveyClickStream {
    * @param {String} description clicksteam에 들어갈 description
    * @param {String} answer answer
    * @param {String} id 고유값, update하기 위해 사용
-   * @param {String} action update or Create
+   * @param {String} type 문제의 유형 text, picklist...
+   * @param {String} action create or update
    */
-  constructor(qusetionTitle, description, answer, id, action) {
+  constructor(qusetionTitle, description, answer, id, type, action) {
     this.clickStreamObject = {};
     this.clickStreamObject.Question_vod__c = qusetionTitle; //서베이 질문
     this.clickStreamObject.Track_Element_Description_vod__c = description;
@@ -32,6 +33,25 @@ class SurveyClickStream {
     this.clickStreamObject.Track_Element_Id_vod__c = id; //updateRecord에서 처리할 id
     this.clickStreamObject.Usage_Start_Time_vod__c = new Date();
     this.action = action;
+    this.type = type;
+    this.currentAnswer = null;
+  }
+
+  setSurveyAnswersToClickStream() {
+    return new Promise((res, rej) => {
+      switch (this.type) {
+        case "picklist":
+          this.clickStreamObject.Answer_vod__c = this.currentAnswer;
+          break;
+        case "text":
+          //value 가져오기...
+          this.clickStreamObject.Answer_vod__c = value;
+          break;
+        default:
+          break;
+      }
+      res();
+    });
   }
 
   submitSurveyResult() {
@@ -66,7 +86,7 @@ class SurveyClickStream {
             }
           );
         default:
-          result = "type 확인필요";
+          result = "action 확인필요";
           return rej(result);
       }
     });
@@ -81,6 +101,12 @@ class SurveyClickStream {
     );
   }
 }
+
+const getAnswers = async surveyArr => {
+  for (let i = 0; i < surveyArr.length; i++) {
+    await surveyArr[i].setSurveyAnswersToClickStream();
+  }
+};
 
 const submitClickStream = async surveyArr => {
   try {

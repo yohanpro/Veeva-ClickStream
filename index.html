@@ -12,16 +12,43 @@
         width: 100vw;
         height: calc(100vh- 50px);
         position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        left: 5%;
+        top: 5%;
     }
 
     #btn-submit {
-        width: 150px;
-        height: 70px;
+        width: 100px;
+        height: 30px;
+        left: 20%;
+        bottom: 0;
         color: #fff;
         background: blue;
+    }
+
+    .question_container {
+        position: relative;
+
+        width: 350px;
+        height: 500px;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .question {
+        width: 70%;
+    }
+
+    input {
+        display: block;
+        margin-top: 1rem;
+    }
+
+    input.choice {
+        display: inline-block;
+        width: 10%;
     }
 </style>
 
@@ -29,7 +56,28 @@
 
     <div class="container">
         <div class="result"></div>
-        <button id="btn-submit">Click to Submit</button>
+
+        <div class="question_container">
+            <div class="question">
+                <label for="question-1">안녕하세요?</label><br>
+                <input id="question-1" class="" type="text" max="20" placeholder="입력">
+            </div>
+            <div class="question">
+                <label for="question-2">오늘 날씨는 어떤가요?</label><br>
+                <input id="question-2" class="" type="text" max="20" placeholder="입력">
+            </div>
+            <div class="question">
+                <label for="question-3">선택</label>
+
+                <div>
+                    <input type="radio" class="choice" name="choice" value="1" checked>1
+                    <input type="radio" class="choice" name="choice" value="2">2
+                    <input type="radio" class="choice" name="choice" value="3">3
+                </div>
+            </div>
+            <button id="btn-submit" onclick="submit()">Click to Submit</button>
+        </div>
+
     </div>
 
     <script src="veeva-library.js"></script>
