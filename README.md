@@ -10,7 +10,7 @@ Veeva에 ClickStream 데이터를 보낼 때, 배열로 만들고 한꺼번에 �
 veeva 라이브러리 뒤편에 ClickStream.js 사용.  
 local.js에 ClickStream Class 인스턴스를 만들어서 사용.
 
-###Example
+### Example
 
 ```html
 <body>
