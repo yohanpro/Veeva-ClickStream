@@ -46,6 +46,20 @@ const clickstream = new ClickStream(
 );
 ```
 
+### Submit
+
+```js
+//한 개일 경우
+clickstream.submitSurveyResult()
+.then(result=>console.log(result));
+
+// 여러개일 경우
+
+const clickStreamArr = [clickstream1,clickstream2,clickstream3,...];
+submitClickStream(clickStreamArr)
+.then(result=>console.log(result));
+```
+
 <li> <strong>qusetionTitle</strong> clicksteam에 들어갈 질문</li>
 <li> <strong>Description</strong> Description에 들어갈 질문</li>
 <li> <strong>answer</strong> 대답</li>
