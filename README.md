@@ -28,10 +28,6 @@ const clickstream = new ClickStream(
   "id",
   "type"
 );
-
-const btnSubmit = document.getElementById("btn");
-
-btnSubmit.addEventListener("click", () => clickstream.submit("create"));
 ```
 
 ### Create instance
