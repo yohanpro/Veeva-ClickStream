@@ -66,15 +66,15 @@ submitClickStream(clickStreamArr)
 
 ### ClickStream과 ClickStream_2 중 어떤 방향으로 만드는게 맞을까?
 
-- 문제 1. create와 update를 어떻게 구분할것인가?
+- 문제 1. create와 update를 어떻게 구분할것인가?<br>
   린파자의 경우 -> sessionStorage 사용. 옳은 방법인지는 Veeva Library를 더 찾아봐야 할듯
 
-- 문제 2. 어떻게 답변을 넣어줄 것인가?
+- 문제 2. 어떻게 답변을 넣어줄 것인가?<br>
   린파자의 경우 ClickStream_2를 참조하면 setSurveyAnswersToClickStream() 메소드가 존재함. <br>
   class의 경우 재사용이 중요한데, 선택을 줄이는 것이 아닌가? 하는 고민
 
 - 문제 3. ClickStream 메소드에는 들어가 있지는 않지만,
-  그래도 필요한 함수의 경우 처리는 어떻게 해주어야 하는가?
+  그래도 필요한 함수의 경우 처리는 어떻게 해주어야 하는가?<br>
   ex) submitClickStream, getAnswers,isVeevaEnvironment...
 
 기타 다른 의견을 들어보고 싶어서 만들었습니다.
