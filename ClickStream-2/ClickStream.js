@@ -22,9 +22,10 @@ class SurveyClickStream {
    * @param {String} description clicksteam에 들어갈 description
    * @param {String} answer answer
    * @param {String} id 고유값, update하기 위해 사용
-   * @param {String} action update or Create
+   * @param {String} type 문제의 유형 text, picklist...
+   * @param {String} action create or update
    */
-  constructor(qusetionTitle, description, answer, id, action) {
+  constructor(qusetionTitle, description, answer, id, type, action) {
     this.clickStreamObject = {};
     this.clickStreamObject.Question_vod__c = qusetionTitle; //서베이 질문
     this.clickStreamObject.Track_Element_Description_vod__c = description;
@@ -32,6 +33,35 @@ class SurveyClickStream {
     this.clickStreamObject.Track_Element_Id_vod__c = id; //updateRecord에서 처리할 id
     this.clickStreamObject.Usage_Start_Time_vod__c = new Date();
     this.action = action;
+    this.type = type;
+  }
+
+  setSurveyAnswersToClickStream() {
+    return new Promise((res, rej) => {
+      switch (this.type) {
+        case "picklist":
+          let value = "";
+          const radio = document.getElementsByName("choice");
+          for (let i = 0; i < radio.length; i++) {
+            if (radio[i].checked) {
+              value = radio[i].value;
+            }
+          }
+          this.clickStreamObject.Answer_vod__c = value;
+          break;
+        case "text":
+          //value 가져오기...
+          //여기는 예시. this is example to get
+          const qValue = document.getElementById(
+            this.clickStreamObject.Track_Element_Id_vod__c
+          ).value;
+          this.clickStreamObject.Answer_vod__c = qValue;
+          break;
+        default:
+          return "Check your answer type";
+      }
+      res();
+    });
   }
 
   submitSurveyResult() {
@@ -39,7 +69,7 @@ class SurveyClickStream {
       let result = "";
       if (this.isAnswerEmpty(this.clickStreamObject.Answer_vod__c)) {
         result = "답변 없음";
-        return rej(result); //만약 답변이 비어있다면 그대로 return 해준다.
+        return res(result); //만약 답변이 비어있다면 그대로 return 해준다.
       }
       if (!isVeevaEnvironment()) {
         //개발환경이라면 여기서 내보내고 종료
@@ -66,7 +96,7 @@ class SurveyClickStream {
             }
           );
         default:
-          result = "type 확인필요";
+          result = "check your action ";
           return rej(result);
       }
     });
@@ -81,6 +111,16 @@ class SurveyClickStream {
     );
   }
 }
+
+const getAnswers = async surveyArr => {
+  try {
+    for (let i = 0; i < surveyArr.length; i++) {
+      await surveyArr[i].setSurveyAnswersToClickStream();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const submitClickStream = async surveyArr => {
   try {

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ClickStream</title>
+</head>
+<style>
+    .container {
+        width: 100vw;
+        height: calc(100vh- 50px);
+        position: absolute;
+        left: 5%;
+        top: 5%;
+    }
+
+    #btn-submit {
+        width: 100px;
+        height: 30px;
+        left: 20%;
+        bottom: 0;
+        color: #fff;
+        background: blue;
+    }
+
+    .question_container {
+        position: relative;
+
+        width: 350px;
+        height: 500px;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .question {
+        width: 70%;
+    }
+
+    input {
+        display: block;
+        margin-top: 1rem;
+    }
+
+    input.choice {
+        display: inline-block;
+        width: 10%;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="result"></div>
+
+        <div class="question_container">
+            <div class="question">
+                <label for="survey1">안녕하세요?</label><br>
+                <input id="survey1" class="" type="text" max="20" data-answer="" placeholder="입력">
+            </div>
+            <div class="question">
+                <label for="survey2">오늘 날씨는 어떤가요?</label><br>
+                <input id="survey2" class="" type="text" max="20" data-answer="" placeholder="입력">
+            </div>
+            <div class="question">
+                <label for="question-3">선택</label>
+
+                <div>
+                    <input type="radio" class="choice" name="choice" value="1" checked>1
+                    <input type="radio" class="choice" name="choice" value="2">2
+                    <input type="radio" class="choice" name="choice" value="3">3
+                </div>
+            </div>
+            <button id="btn-submit" onclick="submit()">Click to Submit</button>
+        </div>
+
+    </div>
+
+    <script src="veeva-library.js"></script>
+    <script src="ClickStream.js"></script>
+    <script src="local.js"></script>
+
+</body>
+
+</html>
